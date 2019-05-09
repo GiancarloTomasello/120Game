@@ -13,12 +13,14 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
+	//world assets loaded and physics-afied
 	this.hat = game.add.sprite(200, 200, 'hat');
 	game.physics.arcade.enable(this.hat);
 
 	this.player = game.add.sprite(400, 200, 'player');
 	game.physics.arcade.enable(this.player);
 
+	//Minigame 1 assets loaded and physics-afied
 	this.miniHat = game.add.sprite(400, 400, 'hat');
 	game.physics.arcade.enable(this.hat);
 	this.miniHat.scale.setTo(.5,.5);
@@ -27,6 +29,7 @@ function create() {
 	this.toolTip = game.add.text(220,180, 'Up', {fill: '#FFFFFF'});
 	this.toolTip.alpha = 0;
 
+	//Arrow keys created
 	this.cursors = game.input.keyboard.createCursorKeys();
 
 }
@@ -34,6 +37,7 @@ function create() {
 function update() {
 	// run game loop
 
+	//Players movement
 	if(this.cursors.left.isDown && !minigame){
 		this.player.x +=-5;
 	}
@@ -41,6 +45,7 @@ function update() {
 		this.player.x +=5;
 	}
 
+	//Minigame 1 controls/rules
 	if(this.cursors.left.isDown && minigame){
 		this.miniHat.x +=-5;
 	}
@@ -51,7 +56,7 @@ function update() {
 
 	var overlap = game.physics.arcade.overlap(this.player, this.hat, interactObject, null, this);
 
-	if(overlap){
+	if(overlap && minigame == false){
 		this.toolTip.alpha = 1;
 	}
 	else{
@@ -63,5 +68,8 @@ function interactObject(player, hat){
 	if(this.cursors.up.isDown && !minigame){
 		console.log('You have touch-eth the hat-eth');
 		minigame = true;
+	}else if(this.cursors.down.isDown){
+		console.log('You have drop-eth the hat-eth');
+		minigame = false;
 	}
 }
