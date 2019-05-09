@@ -23,7 +23,12 @@ function create() {
 	game.physics.arcade.enable(this.hat);
 	this.miniHat.scale.setTo(.5,.5);
 
+	//ToolTip Text
+	this.toolTip = game.add.text(220,180, 'Up', {fill: '#FFFFFF'});
+	this.toolTip.alpha = 0;
+
 	this.cursors = game.input.keyboard.createCursorKeys();
+
 }
 
 function update() {
@@ -45,6 +50,13 @@ function update() {
 
 
 	var overlap = game.physics.arcade.overlap(this.player, this.hat, interactObject, null, this);
+
+	if(overlap){
+		this.toolTip.alpha = 1;
+	}
+	else{
+		this.toolTip.alpha = 0;
+	}
 }
 
 function interactObject(player, hat){
