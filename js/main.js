@@ -6,6 +6,7 @@ function preload() {
 	// preload assets
 	game.load.image('hat', 'assets/img/Hat.png');
 	game.load.image('player', 'assets/img/TempPlayer.png');
+	game.load.atlas('player2', 'assets/img/maron.png', 'assets/img/Maron.json');
 }
 
 function create() {
@@ -17,7 +18,11 @@ function create() {
 	this.hat = game.add.sprite(200, 200, 'hat');
 	game.physics.arcade.enable(this.hat);
 
-	this.player = game.add.sprite(400, 200, 'player');
+	//this.player = game.add.sprite(200, 200, 'player2', 'Left');
+	this.player = game.add.sprite(400, 200, 'player2');
+	this.player.animations.add('Right');
+	this.player.animations.play('Right');
+
 	game.physics.arcade.enable(this.player);
 
 	//Minigame 1 assets loaded and physics-afied
@@ -25,8 +30,9 @@ function create() {
 	game.physics.arcade.enable(this.hat);
 	this.miniHat.scale.setTo(.5,.5);
 
+
 	//ToolTip Text
-	this.toolTip = game.add.text(220,180, 'Up', {fill: '#FFFFFF'});
+	this.toolTip = game.add.text(220,150, 'Up', {fill: '#FFFFFF'});
 	this.toolTip.alpha = 0;
 
 	//Arrow keys created
