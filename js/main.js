@@ -7,6 +7,7 @@ function preload() {
 	game.load.image('hat', 'assets/img/Hat.png');
 	game.load.image('player', 'assets/img/TempPlayer.png');
 	game.load.image('background', 'assets/img/Background.png');	
+	game.load.image('M1Background', 'assets/img/MinigameBackground.png');
 	game.load.atlas('player2', 'assets/img/maron.png', 'assets/img/Maron.json');
 }
 
@@ -29,9 +30,14 @@ function create() {
 	game.physics.arcade.enable(this.player);
 
 	//Minigame 1 assets loaded and physics-afied
-	this.miniHat = game.add.sprite(400, 400, 'hat');
+
+	this.M1Background = game.add.sprite(500,400, 'M1Background');
+
+	this.miniHat = game.add.sprite(550, 450, 'hat');
 	game.physics.arcade.enable(this.hat);
 	this.miniHat.scale.setTo(.5,.5);
+
+	this.m1Health = 50;
 
 
 	//ToolTip Text
@@ -71,6 +77,7 @@ function update() {
 	else{
 		this.toolTip.alpha = 0;
 	}
+
 }
 
 function interactObject(player, hat){
