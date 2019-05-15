@@ -6,6 +6,7 @@ function preload() {
 	// preload assets
 	game.load.image('hat', 'assets/img/Hat.png');
 	game.load.image('player', 'assets/img/TempPlayer.png');
+	game.load.image('background', 'assets/img/Background.png');	
 	game.load.atlas('player2', 'assets/img/maron.png', 'assets/img/Maron.json');
 }
 
@@ -15,6 +16,8 @@ function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	//world assets loaded and physics-afied
+	this.background = game.add.sprite(0,0, 'background');
+
 	this.hat = game.add.sprite(200, 200, 'hat');
 	game.physics.arcade.enable(this.hat);
 
@@ -32,7 +35,7 @@ function create() {
 
 
 	//ToolTip Text
-	this.toolTip = game.add.text(220,150, 'Up', {fill: '#FFFFFF'});
+	this.toolTip = game.add.text(220,150, 'Up', {fill: '#000'});
 	this.toolTip.alpha = 0;
 
 	//Arrow keys created
