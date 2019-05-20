@@ -18,7 +18,9 @@ Play.prototype = {
 	this.hat2 = game.add.sprite(600, 200, 'hat');
 	game.physics.arcade.enable(this.hat2);
 
-
+	//Prefab
+	this.machine = new Generator(game, 200, 200, 50);
+	game.add.existing(this.machine);
 
 	// this.hat2 = game.add.sprite(600, 200, 'hat');
 	// game.physics.arcade.enable(this.hat);
