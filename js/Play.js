@@ -12,6 +12,9 @@ Play.prototype = {
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
 
+	//M1 Background
+	//this.M1Background = game.add.sprite(500,400, 'M1Background');
+
 	this.hat = game.add.sprite(200, 200, 'hat');
 	game.physics.arcade.enable(this.hat);
 
@@ -19,11 +22,9 @@ Play.prototype = {
 	game.physics.arcade.enable(this.hat2);
 
 	//Prefab
-	this.machine = new Generator(game, 200, 200, 50);
+	this.machine = new Generator(game, 50, 200, 50, 1);
 	game.add.existing(this.machine);
 
-	// this.hat2 = game.add.sprite(600, 200, 'hat');
-	// game.physics.arcade.enable(this.hat);
 
 
 	//this.player = game.add.sprite(200, 200, 'player2', 'Left');
@@ -35,8 +36,6 @@ Play.prototype = {
 	this.player.body.collideWorldBounds = true;
 
 	//Minigame 1 text and sprites created
-
-	this.M1Background = game.add.sprite(500,400, 'M1Background');
 
 	this.M1Info000 = game.add.text(600, 500, 'Mash', {fill: '#FFFFFF'});
 	this.M1Info000.anchor.set(0.5);
@@ -96,6 +95,18 @@ Play.prototype = {
 	//Player object interaction
 	var overlap = game.physics.arcade.overlap(this.player, this.hat, interactObject, null, this);
 	var overlap2 = game.physics.arcade.overlap(this.player, this.hat2, interactObject, null, this);
+
+	var overlap3 = game.physics.arcade.overlap(this.player, this.machine);
+	if(overlap3){
+		this.machine.Background.alpha = 1;
+		this.machine.Info0.alpha = 1;
+		this.machine.Info1.alpha = 1;
+	}
+	else{
+		this.machine.Background.alpha = 0;
+		this.machine.Info0.alpha = 0;
+		this.machine.Info1.alpha = 0;
+	}
 	
 	//Minigame 1 controls/rules
 	if(overlap && minigame == false){
