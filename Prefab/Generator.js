@@ -1,9 +1,22 @@
 
 function Generator(game, x, y, startingHealth){
 	//sets the paramaters when created
+	this.abc = 0;
 	Phaser.Sprite.call(this, game, x, y, 'hat');
+	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.set(0.5);
 	this.health = startingHealth;
+
+
+	this.Info0 = game.add.text(600, 500, 'Mash', {fill: '#FFFFFF'});
+	this.Info0.anchor.set(0.5);
+	this.Info1 = game.add.text(625, 525, 'to fix', {fill: '#FFFFFF'});
+	this.Info1.anchor.set(0.5);
+	this.Info0.alpha = 0;
+	this.Info1.alpha = 0;
+
+	this.Background = game.add.sprite(500,400, 'M1Background');
+	this.Background.alpha = 0;
 }
 
 //Extends the Phaser.Sprite to prefab and sets the constructor name
