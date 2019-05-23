@@ -5,8 +5,13 @@ function Generator(game, x, y, startingHealth){
 	Phaser.Sprite.call(this, game, x, y, 'hat');
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.set(0.5);
-	this.health = startingHealth;
 
+	this.health = startingHealth;
+	this.healthText = game.add.text(500, 360, 'Machine health: ' + this.health);
+	this.healthText.alpha = 0;
+
+	this.Background = game.add.sprite(500,400, 'M1Background');
+	this.Background.alpha = 0;
 
 	this.Info0 = game.add.text(600, 500, 'Mash', {fill: '#FFFFFF'});
 	this.Info0.anchor.set(0.5);
@@ -15,8 +20,8 @@ function Generator(game, x, y, startingHealth){
 	this.Info0.alpha = 0;
 	this.Info1.alpha = 0;
 
-	this.Background = game.add.sprite(500,400, 'M1Background');
-	this.Background.alpha = 0;
+	
+	
 }
 
 //Extends the Phaser.Sprite to prefab and sets the constructor name
