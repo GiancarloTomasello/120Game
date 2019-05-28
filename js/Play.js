@@ -12,8 +12,8 @@ Play.prototype = {
 
 
 	//Prefab instance
-	//this.machine = new Generator(game, 50, 200, 50);
-	this.machine = new Wires(game, 500, 200, 50)
+	this.machine = new Generator(game, 50, 200, 50);
+	//this.machine = new Wires(game, 500, 200, 50)
 	game.add.existing(this.machine);
 
 
@@ -64,16 +64,16 @@ Play.prototype = {
 		}
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
-		//var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
-		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachineWire, null, this);
+		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
+		//var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachineWire, null, this);
 
 		if(overlap){
 			this.machine.Info0.alpha = 1;
 			this.machine.Info1.alpha = 1;
 			this.machine.healthText.alpha = 1;
 			this.machine.Background.alpha = 1;
-			//this.spacebar.alpha = 1;
-			this.machine.plug.alpha = 1;
+			this.spacebar.alpha = 1;
+			//this.machine.plug.alpha = 1;
 			
 		}
 		else{
@@ -82,7 +82,7 @@ Play.prototype = {
 			this.machine.healthText.alpha = 0;
 			this.machine.Background.alpha = 0;
 			this.spacebar.alpha = 0;
-			this.machine.plug.alpha = 0;
+			//this.machine.plug.alpha = 0;
 		}
 
 		if(this.machine.health > 100){
@@ -97,7 +97,7 @@ Play.prototype = {
 
 function timeEvent(){
 	this.time++;
-	//this.machine.health--;
+	this.machine.health--;
 }
 
 //Timer event for moving the plug forward and increasing health(minigame2)
