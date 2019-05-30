@@ -32,7 +32,7 @@ MainMenu.prototype = {
 
 	update: function(){
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			game.state.start('Play');
+			game.state.start('Level-1');
 		}
 	}
 }

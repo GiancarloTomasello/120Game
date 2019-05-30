@@ -15,7 +15,8 @@ window.onload = function(){
 	game = new Phaser.Game(800, 600, Phaser.AUTO);
 
 	game.state.add('MainMenu', MainMenu);
-	game.state.add('Play', Play);
+	game.state.add('Level-1', Play);
+	game.state.add('Level-2', Play2);
 	game.state.add('GameOver', GameOver);
 	game.state.start('MainMenu');
 }
