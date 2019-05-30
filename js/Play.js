@@ -97,9 +97,10 @@ Play.prototype = {
 
 		if(this.machine.health > 100){
 			this.machine.health = 100;
-			console.log('Level1 (Tutorial) complete')
+			
+			//game.state.start('Level 2');
 		}
-		else if (this.machine.health <= 0 || this.time > 60){
+		else if (this.machine.health <= 0){
 			game.state.start('GameOver');
 		}
 
