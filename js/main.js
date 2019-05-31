@@ -18,6 +18,7 @@ window.onload = function(){
 	game.state.add('Level-1', Play);
 	game.state.add('Level-2', Play2);
 	game.state.add('Level-3', Play3);
+	game.state.add('Level-4', Play4);
 	game.state.add('GameOver', GameOver);
 	game.state.start('MainMenu');
 }
