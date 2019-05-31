@@ -101,16 +101,12 @@ Play.prototype = {
 
 			game.state.start('Level-2');
 		}
-		else if (this.machine.health <= 0){
-			game.state.start('GameOver');
-		}
 
 	}
 }
 
 function timeEvent(){
 	this.time++;
-	this.machine.health--;
 }
 
 //Overlap method called for the generator. When space bar is pressed increase health (minigame1)
