@@ -20,8 +20,11 @@ Play.prototype = {
 	//create the player and add them to the world, sets up animations
 	this.player = game.add.sprite(400, 200, 'player2');
 	this.player.anchor.set(0.5);
-	this.player.animations.add('Right');
-	this.player.animations.play('Right');
+	this.player.animations.add('StandR', [0], 1, false);
+	this.player.animations.add('StandL', [1], 1, false);
+	this.player.animations.add('walkRight', [2, 3, 4, 5, 6, 7, 8, 9], 10, true);
+	this.player.animations.add('walkLeft', [10, 11, 12, 13, 14, 15, 16, 17], 10, true);
+	this.direction = 0;
 
 	game.physics.arcade.enable(this.player);
 	this.player.body.collideWorldBounds = true;
@@ -71,9 +74,16 @@ Play.prototype = {
 		//Players movement
 		if(this.cursors.left.isDown && !minigame){
 			this.player.x +=-5;
-		}
-		if(this.cursors.right.isDown && !minigame){
+			this.player.animations.play('walkLeft');
+			this.direction = 0;
+		}else if(this.cursors.right.isDown && !minigame){
 			this.player.x +=5;
+			this.player.animations.play('walkRight');
+			this.direction = 1;
+		}else if(this.direction = 0){
+			this.player.animations.play('StandL');
+		}else if (this.direction = 1){
+			this.player.animations.play('StandR');
 		}
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
