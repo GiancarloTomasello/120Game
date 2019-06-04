@@ -9,6 +9,7 @@ MainMenu.prototype = {
 		game.load.image('LevelStart', 'assets/img/Message.png');
 		game.load.image('spacebar', 'assets/img/Spacebar.png');
 		game.load.image('crate', 'assets/img/Crate.png');
+		game.load.image('ground', 'assets/img/Tile.png');
 		game.load.atlas('player', 'assets/img/maron.png', 'assets/img/Maron.json');
 		game.load.audio('fix000', 'assets/audio/FixSoundFX.wav');
 		game.load.audio('fix001', 'assets/audio/FixSoundFX001.wav')

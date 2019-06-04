@@ -21,6 +21,17 @@ Play4.prototype = {
 	// this.obj = game.add.sprite(100,150, 'generator');
 	// game.physics.arcade.enable(this.obj);
 
+	//Ground
+	this.floor = game.add.group();
+	this.floor.enableBody = true;
+	for(var i = 0; i < 7; i++){
+		this.tile = this.floor.create(0+i*128, 445, 'ground');
+		this.tile.scale.set(1, 1.2);
+		this.tile.body.immovable = true;
+	}
+
+
+
 	//Crate
 	this.crates = game.add.group();
 	this.crates.enableBody = true;
@@ -55,6 +66,7 @@ Play4.prototype = {
 	this.box.scale.setTo(1.5);
 	this.box.body.immovable = true;
 
+	
 
 
 	//create the player and add them to the world, sets up animations
