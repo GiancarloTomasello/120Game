@@ -3,6 +3,7 @@ MainMenu.prototype = {
 	preload: function(){
 		// preload assets
 		game.load.image('hat', 'assets/img/Hat.png');
+		game.load.image('generator', 'assets/img/generator.png');
 		game.load.image('plug', 'assets/img/TempPlug.png');
 		game.load.image('background', 'assets/img/Background.png');	
 		game.load.image('M1Background', 'assets/img/MinigameBackground.png');

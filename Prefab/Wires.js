@@ -1,7 +1,7 @@
 
 function Wires(game, x, y, startingHealth){
 	//sets the paramaters when created
-	Phaser.Sprite.call(this, game, x, y, 'hat');
+	Phaser.Sprite.call(this, game, x, y, 'generator');
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.set(0.5);
 

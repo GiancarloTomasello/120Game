@@ -12,7 +12,7 @@ Play.prototype = {
 
 
 	//Prefab instance
-	this.machine = new Generator(game, 50, 200, 50);
+	this.machine = new Generator(game, 75, 190, 50);
 	game.add.existing(this.machine);
 
 

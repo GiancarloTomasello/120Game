@@ -13,7 +13,7 @@ Play2.prototype = {
 
 
 	//Prefab instance
-	this.machine = new Wires(game, 500, 200, 50)
+	this.machine = new Wires(game, 650, 190, 50)
 	game.add.existing(this.machine);
 
 	//create the player and add them to the world, sets up animations

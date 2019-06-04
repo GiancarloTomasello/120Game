@@ -26,7 +26,7 @@ create: function(){
 
 
 	//Prefab instance
-	this.machine = new Generator(game, 75, 200, 50);
+	this.machine = new Generator(game, 75, 190, 50);
 	game.add.existing(this.machine);
 	this.machine2 = new Wires(game, 75, 500, 50)
 	game.add.existing(this.machine2);
