@@ -18,7 +18,7 @@ Play.prototype = {
 
 
 	//create the player and add them to the world, sets up animations
-	this.player = game.add.sprite(400, 200, 'player2');
+	this.player = game.add.sprite(400, 200, 'player');
 	this.player.anchor.set(0.5);
 	this.player.animations.add('StandR', [0], 1, false);
 	this.player.animations.add('StandL', [1], 1, false);
@@ -33,13 +33,6 @@ Play.prototype = {
 	this.spacebar = game.add.sprite(700, 500, 'spacebar');
 	this.spacebar.anchor.set(0.5);
 	this.spacebar.alpha = 0;
-
-
-	//set up time and timer event
-	this.time = 0;
-	this.timeText = game.add.text(300, 25, 'Time: ' + this.time, {fontSize: '48px'});
-
-	
 
 	//game audio
 	this.fixSound000 = game.add.audio('fix000');
@@ -65,11 +58,9 @@ Play.prototype = {
 			this.gameStated = true;
 			this.levelStart.destroy();
 			this.startText.destroy();
-			game.time.events.loop(Phaser.Timer.SECOND, timeEvent, this);
 		}
 
 		//Update Test
-		this.timeText.setText('Time: ' + this.time);
 		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
 		//Players movement
 		if(this.cursors.left.isDown && !minigame){
@@ -118,10 +109,6 @@ Play.prototype = {
 	}
 }
 
-function timeEvent(){
-	this.time++;
-	this.machine.health--;
-}
 
 //Overlap method called for the generator. When space bar is pressed increase health (minigame1)
 function fixMachine(player, machine){
