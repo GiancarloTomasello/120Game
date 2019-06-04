@@ -3,13 +3,13 @@ MainMenu.prototype = {
 	preload: function(){
 		// preload assets
 		game.load.image('hat', 'assets/img/Hat.png');
+		game.load.image('generator', 'assets/img/generator.png');
 		game.load.image('plug', 'assets/img/TempPlug.png');
-		game.load.image('player', 'assets/img/TempPlayer.png');
 		game.load.image('background', 'assets/img/Background.png');	
 		game.load.image('M1Background', 'assets/img/MinigameBackground.png');
 		game.load.image('LevelStart', 'assets/img/Message.png');
 		game.load.image('spacebar', 'assets/img/Spacebar.png');
-		game.load.atlas('player2', 'assets/img/maron.png', 'assets/img/Maron.json');
+		game.load.atlas('player', 'assets/img/maron.png', 'assets/img/Maron.json');
 		game.load.audio('fix000', 'assets/audio/FixSoundFX.wav');
 		game.load.audio('fix001', 'assets/audio/FixSoundFX001.wav')
 	},

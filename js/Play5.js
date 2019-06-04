@@ -1,24 +1,14 @@
 //Level 3
-var Play4 = function(game){}
+var Play5 = function(game){}
 
-Play4.prototype = {
-
-	create: function(){
+Play5.prototype = {
+create: function(){
 // place your assets
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
-
-
-	//Prefab instance
-	this.machine = new Generator(game, 50, 100, 50);
-	game.add.existing(this.machine);
-	this.machine2 = new Wires(game, 750, 100, 50)
-	game.add.existing(this.machine2);
-
-
 
 	//create the player and add them to the world, sets up animations
 	this.player = game.add.sprite(400, 200, 'player');
@@ -28,6 +18,25 @@ Play4.prototype = {
 	this.player.animations.add('walkRight', [2, 3, 4, 5, 6, 7, 8, 9], 10, true);
 	this.player.animations.add('walkLeft', [10, 11, 12, 13, 14, 15, 16, 17], 10, true);
 	this.direction = 0;
+
+
+	//Adds the elevator to the scene
+	this.elevator = game.add.sprite(700, 150,'elevator');
+	this.elevatorUp = true;
+
+
+	//Prefab instance
+	this.machine = new Generator(game, 75, 190, 50);
+	game.add.existing(this.machine);
+	this.machine2 = new Wires(game, 75, 500, 50)
+	game.add.existing(this.machine2);
+
+
+	//tween
+	// this.tween01 = game.add.tween(this.machine1);
+	// this.tween01.to({
+	// 	x: game.world.width - 72
+	// }, 1500, Phaser.Easing.Quadratic.Out, true, 0, -1, true);
 
 	game.physics.arcade.enable(this.player);
 	this.player.body.collideWorldBounds = true;
@@ -41,7 +50,7 @@ Play4.prototype = {
 	//set up time and timer event
 	this.time = 0;
 	this.timeText = game.add.text(300, 25, 'Time: ' + this.time, {fontSize: '48px'});
-
+    
 	
 
 	//game audio
@@ -77,13 +86,6 @@ Play4.prototype = {
 		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
 		this.machine2.healthText.setText('Machine Health: ' + this.machine2.health);
 		//Players movement
-<<<<<<< HEAD
-		if(this.cursors.left.isDown && !minigame){
-			this.player.x +=-5;
-		}
-		if(this.cursors.right.isDown && !minigame){
-			this.player.x +=5;
-=======
 		if(this.cursors.left.isDown){
 			this.player.x +=-5;
 			this.player.animations.play('walkLeft');
@@ -96,7 +98,18 @@ Play4.prototype = {
 			this.player.animations.play('StandL');
 		}else if (this.direction == 1){
 			this.player.animations.play('StandR');
->>>>>>> master
+		}
+
+		//Elevator interaction
+		if(this.cursors.down.isDown &&  this.player.x > 700 && this.elevatorUp == true){
+			this.elevatorUp = false;
+			this.player.y = 500;
+			this.elevator.y = 450;
+		}
+		else if (this.cursors.up.isDown && this.player.x > 700  && this.elevatorUp == false){
+			this.elevatorUp = true;
+			this.player.y = 200;
+			this.elevator.y = 150;
 		}
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)

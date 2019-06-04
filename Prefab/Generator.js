@@ -2,7 +2,7 @@
 function Generator(game, x, y, startingHealth){
 	//sets the paramaters when created
 	this.abc = 0;
-	Phaser.Sprite.call(this, game, x, y, 'hat');
+	Phaser.Sprite.call(this, game, x, y, 'generator');
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.set(0.5);
 
