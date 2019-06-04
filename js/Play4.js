@@ -1,7 +1,7 @@
-//Level 2
-var Play2 = function(game){}
+//Level 3
+var Play4 = function(game){}
 
-Play2.prototype = {
+Play4.prototype = {
 
 	create: function(){
 // place your assets
@@ -13,8 +13,12 @@ Play2.prototype = {
 
 
 	//Prefab instance
-	this.machine = new Wires(game, 500, 200, 50)
+	this.machine = new Generator(game, 50, 100, 50);
 	game.add.existing(this.machine);
+	this.machine2 = new Wires(game, 750, 100, 50)
+	game.add.existing(this.machine2);
+
+
 
 	//create the player and add them to the world, sets up animations
 	this.player = game.add.sprite(400, 200, 'player');
@@ -27,6 +31,18 @@ Play2.prototype = {
 
 	game.physics.arcade.enable(this.player);
 	this.player.body.collideWorldBounds = true;
+
+	//Creates the spacebar Sprite
+	this.spacebar = game.add.sprite(700, 500, 'spacebar');
+	this.spacebar.anchor.set(0.5);
+	this.spacebar.alpha = 0;
+
+
+	//set up time and timer event
+	this.time = 0;
+	this.timeText = game.add.text(300, 25, 'Time: ' + this.time, {fontSize: '48px'});
+
+	
 
 	//game audio
 	this.fixSound000 = game.add.audio('fix000');
@@ -42,7 +58,7 @@ Play2.prototype = {
 	//Game Instructions
 	this.gameStated = false;
 	this.levelStart = game.add.sprite(200,100, 'LevelStart');
-	this.startText = game.add.text(210, 110, 'Hi again. Corporate wanted me to congratulate you on a task well done, they even sent you a present. That is right, it is a new task! One of our machine keeps getting unpluged and they want you to fix it. And go slow! Any broken cords are coming out of your paycheck. \n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
+	this.startText = game.add.text(210, 110, 'Great work newbie! You are making quick work of these tasks, which reminds me. One of the higher ups got a little carried away at the staff party and so out machines are on the frits. Make sure none of them break during your shift or else you will be in hot water. Good luck!\n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
 
 	},
 	update: function(){
@@ -53,9 +69,13 @@ Play2.prototype = {
 			this.gameStated = true;
 			this.levelStart.destroy();
 			this.startText.destroy();
+			game.time.events.loop(Phaser.Timer.SECOND, timeEvent, this);
 		}
 
+		//Update Test
+		this.timeText.setText('Time: ' + this.time);
 		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
+		this.machine2.healthText.setText('Machine Health: ' + this.machine2.health);
 		//Players movement
 		if(this.cursors.left.isDown){
 			this.player.x +=-5;
@@ -72,14 +92,15 @@ Play2.prototype = {
 		}
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
-		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachineWire, null, this);
+		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
+
 
 		if(overlap){
 			this.machine.Info0.alpha = 1;
 			this.machine.Info1.alpha = 1;
 			this.machine.healthText.alpha = 1;
 			this.machine.Background.alpha = 1;
-			this.machine.plug.alpha = 1;
+			this.spacebar.alpha = 1;
 			
 		}
 		else{
@@ -87,16 +108,51 @@ Play2.prototype = {
 			this.machine.Info1.alpha = 0;
 			this.machine.healthText.alpha = 0;
 			this.machine.Background.alpha = 0;
-			this.machine.plug.alpha = 0;
+			this.spacebar.alpha = 0;
 		}
 
-		if(this.machine.health >= 100){
+		var overlap2 = game.physics.arcade.overlap(this.player, this.machine2, fixMachineWire, null, this);
+
+		if(overlap2){
+			this.machine2.Info0.alpha = 1;
+			this.machine2.Info1.alpha = 1;
+			this.machine2.healthText.alpha = 1;
+			this.machine2.Background.alpha = 1;
+			this.machine2.plug.alpha = 1;
+			
+		}
+		else{
+			this.machine2.Info0.alpha = 0;
+			this.machine2.Info1.alpha = 0;
+			this.machine2.healthText.alpha = 0;
+			this.machine2.Background.alpha = 0;
+			this.machine2.plug.alpha = 0;
+
+		}
+
+
+		if(this.machine.health > 100){
 			this.machine.health = 100;
-			//console.log("level2 (tutorial) complete!")
-			game.state.start('Level-3');
+		}
+		else if(this.machine2.health > 100){
+			this.machine2.health = 100;
+		}
+		else if (this.machine.health <= 0 || this.machine2.health <= 0){
+			game.state.start('GameOver');
 		}
 
+	}
+}
 
+function timeEvent(){
+	this.time++;
+	this.machine.health--;
+}
+
+//Overlap method called for the generator. When space bar is pressed increase health (minigame1)
+function fixMachine(player, machine){
+	if(this.spaceBar.downDuration(5)){
+		this.machine.health += 5;
 	}
 }
 
@@ -109,12 +165,23 @@ function movePlugF(machine){
 	}
 }
 
+//Time event for movinf the plug back and slowly deteriate the machine health(minigame2)
+function movePlugB(machine){
+	machine.plug.x -= 2.5;
+	machine.health -= 1;
+	if(machine.plug.x < 500){
+		machine.plug.x = 500;
+		game.time.events.remove(this.timeLoop);
+	}
+}
 //Overlap method called for moving the plug (minigame2)
 function fixMachineWire(player, machine){
 	if(this.keyboardD.downDuration(5)){
+		game.time.events.remove(this.timeLoop);
 		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugF, this, machine);
 	}
 	if(this.keyboardD.upDuration(50)){
 		game.time.events.remove(this.timeLoop);
+		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugB, this, machine);
 	}
 }

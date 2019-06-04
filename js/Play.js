@@ -63,17 +63,17 @@ Play.prototype = {
 		//Update Test
 		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
 		//Players movement
-		if(this.cursors.left.isDown && !minigame){
+		if(this.cursors.left.isDown){
 			this.player.x +=-5;
 			this.player.animations.play('walkLeft');
 			this.direction = 0;
-		}else if(this.cursors.right.isDown && !minigame){
+		}else if(this.cursors.right.isDown){
 			this.player.x +=5;
 			this.player.animations.play('walkRight');
 			this.direction = 1;
-		}else if(this.direction = 0){
+		}else if(this.direction == 0){
 			this.player.animations.play('StandL');
-		}else if (this.direction = 1){
+		}else if (this.direction == 1){
 			this.player.animations.play('StandR');
 		}
 
