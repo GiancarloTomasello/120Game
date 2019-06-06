@@ -102,9 +102,6 @@ Play.prototype = {
 
 			game.state.start('Level-2');
 		}
-		else if (this.machine.health <= 0){
-			game.state.start('GameOver');
-		}
 
 	}
 }

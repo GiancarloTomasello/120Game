@@ -11,13 +11,59 @@ Play4.prototype = {
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
 
+	//Ground
+	this.floor = game.add.group();
+	this.floor.enableBody = true;
+	for(var i = 0; i < 7; i++){
+		this.tile = this.floor.create(0+i*128, 445, 'ground');
+		this.tile.scale.set(1, 1.2);
+		this.tile.body.immovable = true;
+	}
+
+	//Crate
+	this.crates = game.add.group();
+	this.crates.enableBody = true;
+
+	this.box = this.crates.create(75,195, 'crate');
+	this.box.anchor.set(0.5);
+	this.box.scale.setTo(1.75);
+	this.box.body.immovable = true;
+
+	this.box = this.crates.create(100,350, 'crate');
+	this.box.anchor.set(0.5);
+	this.box.scale.setTo(3);
+	this.box.body.immovable = true;
+
+	this.box = this.crates.create(250,400, 'crate');
+	this.box.anchor.set(0.5);
+	this.box.scale.setTo(1.5);
+	this.box.body.immovable = true;
+
+	this.box = this.crates.create(700,195, 'crate');
+	this.box.anchor.set(0.5);
+	this.box.scale.setTo(1.75);
+	this.box.body.immovable = true;
+
+	this.box = this.crates.create(675,350, 'crate');
+	this.box.anchor.set(0.5);
+	this.box.scale.setTo(3);
+	this.box.body.immovable = true;
+
+	this.box = this.crates.create(525,400, 'crate');
+	this.box.anchor.set(0.5);
+	this.box.scale.setTo(1.5);
+	this.box.body.immovable = true;
 
 	//Prefab instance
-	this.machine = new Generator(game, 50, 100, 50);
+	this.machine = new Generator(game, 65 , 70, 50);
+	this.machine.scale.setTo(0.9);
 	game.add.existing(this.machine);
-	this.machine2 = new Wires(game, 750, 100, 50)
+	this.machine2 = new Wires(game, 720, 70, 50)
+	this.machine2.scale.setTo(0.9);
 	game.add.existing(this.machine2);
 
+	// this.obj = game.add.sprite(100,150, 'generator');
+	// game.physics.arcade.enable(this.obj);
 
 
 	//create the player and add them to the world, sets up animations
@@ -30,7 +76,12 @@ Play4.prototype = {
 	this.direction = 0;
 
 	game.physics.arcade.enable(this.player);
+	this.player.body.drag.setTo(400, 0);
+	this.player.body.gravity.y = 700;
 	this.player.body.collideWorldBounds = true;
+
+	
+
 
 	//Creates the spacebar Sprite
 	this.spacebar = game.add.sprite(700, 500, 'spacebar');
@@ -76,20 +127,31 @@ Play4.prototype = {
 		this.timeText.setText('Time: ' + this.time);
 		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
 		this.machine2.healthText.setText('Machine Health: ' + this.machine2.health);
+
+
+		var collide1 = game.physics.arcade.collide(this.player, this.crates);
+		var collide2 = game.physics.arcade.collide(this.player, this.floor);
+
 		//Players movement
+		if(this.cursors.up.downDuration(.1) && collide1 || this.cursors.up.downDuration(.1) && collide2){
+			this.player.body.velocity.y = -500;
+		}
+
 		if(this.cursors.left.isDown){
-			this.player.x +=-5;
+			this.player.body.velocity.x += -10;
 			this.player.animations.play('walkLeft');
 			this.direction = 0;
 		}else if(this.cursors.right.isDown){
-			this.player.x +=5;
+			this.player.body.velocity.x += 10;
 			this.player.animations.play('walkRight');
 			this.direction = 1;
-		}else if(this.direction == 0){
+		}
+		else if(this.direction == 0){
 			this.player.animations.play('StandL');
 		}else if (this.direction == 1){
 			this.player.animations.play('StandR');
 		}
+
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
 		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
@@ -141,6 +203,10 @@ Play4.prototype = {
 			game.state.start('GameOver');
 		}
 
+	},
+	render: function() {
+		//game.debug.body(this.player);
+		//game.debug.body(this.crates);
 	}
 }
 
