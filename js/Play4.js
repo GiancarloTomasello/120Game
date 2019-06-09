@@ -90,7 +90,7 @@ Play4.prototype = {
 
 
 	//set up time and timer event
-	this.time = 0;
+	this.time = 45;
 	this.timeText = game.add.text(300, 25, 'Time: ' + this.time, {fontSize: '48px'});
 
 	
@@ -121,7 +121,7 @@ Play4.prototype = {
 			this.gameStated = true;
 			this.levelStart.destroy();
 			this.startText.destroy();
-			game.time.events.loop(Phaser.Timer.SECOND, timeEvent, this);
+			game.time.events.loop(Phaser.Timer.SECOND, timeTick, this);
 		}
 
 		//Update Test
@@ -202,6 +202,10 @@ Play4.prototype = {
 		else if(this.machine2.health > 100){
 			this.machine2.health = 100;
 		}
+		
+		if(this.time == 0){
+
+		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
 			game.state.start('GameOver', true, false, stateName);
 		}
@@ -213,8 +217,8 @@ Play4.prototype = {
 	}
 }
 
-function timeEvent(){
-	this.time++;
+function timeTick(){
+	this.time--;
 	this.machine.health--;
 }
 

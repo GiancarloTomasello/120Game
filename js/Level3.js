@@ -24,9 +24,9 @@ create: function(){
 	}
 
 	//Prefab instance
-	this.machine = new Generator(game, 75, 210, 50);
+	this.machine = new Generator(game, 75, 227, 50);
 	game.add.existing(this.machine);
-	this.machine2 = new Wires(game, 700, 210, 50)
+	this.machine2 = new Wires(game, 700, 227, 50)
 	game.add.existing(this.machine2);
 
 	//create the player and add them to the world, sets up animations
@@ -49,7 +49,7 @@ create: function(){
 
 
 	//set up time and timer event
-	this.time = 0;
+	this.time = 30;
 	this.timeText = game.add.text(300, 25, 'Time: ' + this.time, {fontSize: '48px'});
 
 	
@@ -80,7 +80,7 @@ create: function(){
 			this.gameStated = true;
 			this.levelStart.destroy();
 			this.startText.destroy();
-			game.time.events.loop(Phaser.Timer.SECOND, timeEvent, this);
+			game.time.events.loop(Phaser.Timer.SECOND, timeTick, this);
 		}
 
 		//Update Test
@@ -151,7 +151,7 @@ create: function(){
 			this.machine2.health = 100;
 		}
 
-		if(this.time == 30){
+		if(this.time == 0){
 			game.state.start('Level-4');
 		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
@@ -161,9 +161,9 @@ create: function(){
 	}
 }
 
-function timeEvent(){
-	this.time++;
-	this.machine.health--;
+function timeTick(){
+	this.time -= 1;
+	this.machine.health -= 1;
 }
 
 //Overlap method called for the generator. When space bar is pressed increase health (minigame1)
