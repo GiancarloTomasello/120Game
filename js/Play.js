@@ -10,15 +10,25 @@ Play.prototype = {
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
 
+	//Ground
+	this.floor = game.add.group();
+	this.floor.enableBody = true;
+	for(var i = 0; i < 7; i++){
+		this.tile = this.floor.create(0+i*128, 445, 'ground');
+		this.tile.scale.set(1, 1.25);
+		this.tile.body.immovable = true;
+
+		this.tile = this.floor.create(0+i*128, 285, 'ground');
+		this.tile.scale.set(1, 1.25);
+		this.tile.body.immovable = true;
+	}
 
 	//Prefab instance
-	this.machine = new Generator(game, 75, 190, 50);
+	this.machine = new Generator(game, 75, 210, 50);
 	game.add.existing(this.machine);
 
-
-
 	//create the player and add them to the world, sets up animations
-	this.player = game.add.sprite(400, 200, 'player');
+	this.player = game.add.sprite(400, 223, 'player');
 	this.player.anchor.set(0.5);
 	this.player.animations.add('StandR', [0], 1, false);
 	this.player.animations.add('StandL', [1], 1, false);
@@ -49,7 +59,7 @@ Play.prototype = {
 	this.gameStated = false;
 	this.levelStart = game.add.sprite(165,73, 'LevelStart');
 	this.levelStart.scale.setTo(1.2);
-	this.startText = game.add.text(210, 110, 'Hey there new employee! Your tasks at this business will be pretty straight forward. The higher ups at corporate are worried about some of our faulty tech and we want you to fix them. Just walk over to any of them and you will be provided wuth a hand guide. \n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
+	this.startText = game.add.text(210, 110, 'Hey there new employee! Your tasks at this business will be pretty straight forward. The higher ups at corporate are worried about some of our faulty tech and we want you to fix them. Just walk over to any of them and you will be provided with a hand guide. \n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
 
 	},
 	update: function(){

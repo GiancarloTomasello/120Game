@@ -11,13 +11,25 @@ Play2.prototype = {
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
 
+	//Ground
+	this.floor = game.add.group();
+	this.floor.enableBody = true;
+	for(var i = 0; i < 7; i++){
+		this.tile = this.floor.create(0+i*128, 445, 'ground');
+		this.tile.scale.set(1, 1.25);
+		this.tile.body.immovable = true;
+
+		this.tile = this.floor.create(0+i*128, 285, 'ground');
+		this.tile.scale.set(1, 1.25);
+		this.tile.body.immovable = true;
+	}
 
 	//Prefab instance
-	this.machine = new Wires(game, 650, 190, 50)
+	this.machine = new Wires(game, 650, 210, 50)
 	game.add.existing(this.machine);
 
 	//create the player and add them to the world, sets up animations
-	this.player = game.add.sprite(400, 200, 'player');
+	this.player = game.add.sprite(400, 223, 'player');
 	this.player.anchor.set(0.5);
 	this.player.animations.add('StandR', [0], 1, false);
 	this.player.animations.add('StandL', [1], 1, false);
@@ -75,6 +87,7 @@ Play2.prototype = {
 			this.player.animations.play('StandR');
 			this.player.body.velocity.x = 0;
 		}
+
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
 		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachineWire, null, this);
 

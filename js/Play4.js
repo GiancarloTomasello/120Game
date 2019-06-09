@@ -16,7 +16,7 @@ Play4.prototype = {
 	this.floor.enableBody = true;
 	for(var i = 0; i < 7; i++){
 		this.tile = this.floor.create(0+i*128, 445, 'ground');
-		this.tile.scale.set(1, 1.2);
+		this.tile.scale.set(1, 1.25);
 		this.tile.body.immovable = true;
 	}
 
