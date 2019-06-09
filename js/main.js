@@ -5,6 +5,7 @@
 
 //Global Variables
 var game;
+var stateName = '';
 var minigame = false;
 var gameName = '';
 

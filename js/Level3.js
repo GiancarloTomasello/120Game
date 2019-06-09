@@ -6,21 +6,31 @@ create: function(){
 // place your assets
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-
+	stateName = 'Level-3';
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
 
+	//Ground
+	this.floor = game.add.group();
+	this.floor.enableBody = true;
+	for(var i = 0; i < 7; i++){
+		this.tile = this.floor.create(0+i*128, 445, 'ground');
+		this.tile.scale.set(1, 1.25);
+		this.tile.body.immovable = true;
+
+		this.tile = this.floor.create(0+i*128, 285, 'ground');
+		this.tile.scale.set(1, 1.25);
+		this.tile.body.immovable = true;
+	}
 
 	//Prefab instance
-	this.machine = new Generator(game, 75, 200, 50);
+	this.machine = new Generator(game, 75, 210, 50);
 	game.add.existing(this.machine);
-	this.machine2 = new Wires(game, 700, 200, 50)
+	this.machine2 = new Wires(game, 700, 210, 50)
 	game.add.existing(this.machine2);
 
-
-
 	//create the player and add them to the world, sets up animations
-	this.player = game.add.sprite(400, 200, 'player');
+	this.player = game.add.sprite(400, 223, 'player');
 	this.player.anchor.set(0.5);
 	this.player.animations.add('StandR', [0], 1, false);
 	this.player.animations.add('StandL', [1], 1, false);
@@ -98,7 +108,6 @@ create: function(){
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
 		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
 
-
 		if(overlap){
 			this.machine.Info0.alpha = 1;
 			this.machine.Info1.alpha = 1;
@@ -146,7 +155,7 @@ create: function(){
 			game.state.start('Level-4');
 		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
-			game.state.start('GameOver');
+			game.state.start('GameOver', true, false, stateName);
 		}
 
 	}

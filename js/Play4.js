@@ -7,7 +7,7 @@ Play4.prototype = {
 // place your assets
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-
+	stateName = 'Level-4';
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
 
@@ -203,7 +203,7 @@ Play4.prototype = {
 			this.machine2.health = 100;
 		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
-			game.state.start('GameOver');
+			game.state.start('GameOver', true, false, stateName);
 		}
 
 	},

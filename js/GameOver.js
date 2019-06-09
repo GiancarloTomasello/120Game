@@ -1,7 +1,8 @@
 var GameOver = function(game){}
 GameOver.prototype = {
-	init: function(){
-		
+	init: function(stateName){
+		this.stateName = stateName;
+		console.log('stateName: ' + this.stateName);
 	},
 
 	create: function(){
@@ -16,6 +17,9 @@ GameOver.prototype = {
 	},
 
 	update: function(){
-
+		//Restart Level
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+			game.state.start(this.stateName);
+		}
 	}
 }
