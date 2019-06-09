@@ -203,7 +203,7 @@ Play4.prototype = {
 		}
 
 		if(this.time == 0){
-
+			game.state.start('GameOver', true, false, stateName, 'Shift Complete!');
 		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
 			game.state.start('GameOver', true, false, stateName);

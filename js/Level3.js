@@ -154,7 +154,7 @@ create: function(){
 			game.state.start('Level-4');
 		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
-			game.state.start('GameOver', true, false, stateName);
+			game.state.start('GameOver', true, false, stateName, 'Gameover');
 		}
 
 	}
