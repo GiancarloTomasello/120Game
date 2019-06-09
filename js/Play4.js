@@ -135,7 +135,7 @@ Play4.prototype = {
 
 		//Players movement
 		if(this.cursors.up.downDuration(.1) && collide1 || this.cursors.up.downDuration(.1) && collide2){
-			this.player.body.velocity.y = -500;
+			this.player.body.velocity.y = -450;
 		}
 
 		if(this.cursors.left.isDown){
@@ -149,8 +149,10 @@ Play4.prototype = {
 		}
 		else if(this.direction == 0){
 			this.player.animations.play('StandL');
+			this.player.body.velocity.x = 0;
 		}else if (this.direction == 1){
 			this.player.animations.play('StandR');
+			this.player.body.velocity.x = 0;
 		}
 
 

@@ -12,21 +12,25 @@ create: function(){
 
 
 	//Prefab instance
-	this.machine = new Generator(game, 50, 200, 50);
+	this.machine = new Generator(game, 75, 200, 50);
 	game.add.existing(this.machine);
-	this.machine2 = new Wires(game, 500, 200, 50)
+	this.machine2 = new Wires(game, 700, 200, 50)
 	game.add.existing(this.machine2);
 
 
 
 	//create the player and add them to the world, sets up animations
-	this.player = game.add.sprite(400, 200, 'player2');
+	this.player = game.add.sprite(400, 200, 'player');
 	this.player.anchor.set(0.5);
-	this.player.animations.add('Right');
-	this.player.animations.play('Right');
+	this.player.animations.add('StandR', [0], 1, false);
+	this.player.animations.add('StandL', [1], 1, false);
+	this.player.animations.add('walkRight', [2, 3, 4, 5, 6, 7, 8, 9], 10, true);
+	this.player.animations.add('walkLeft', [10, 11, 12, 13, 14, 15, 16, 17], 10, true);
+	this.direction = 0;
 
 	game.physics.arcade.enable(this.player);
 	this.player.body.collideWorldBounds = true;
+	this.player.body.drag.setTo(400, 0);
 
 	//Creates the spacebar Sprite
 	this.spacebar = game.add.sprite(700, 500, 'spacebar');
@@ -53,7 +57,8 @@ create: function(){
 
 	//Game Instructions
 	this.gameStated = false;
-	this.levelStart = game.add.sprite(200,100, 'LevelStart');
+	this.levelStart = game.add.sprite(165,73, 'LevelStart');
+	this.levelStart.scale.setTo(1.2);
 	this.startText = game.add.text(210, 110, 'Great work newbie! You are making quick work of these tasks, which reminds me. One of the higher ups got a little carried away at the staff party and so out machines are on the frits. Make sure none of them break during your shift or else you will be in hot water. Good luck!\n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
 
 	},
@@ -73,11 +78,21 @@ create: function(){
 		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
 		this.machine2.healthText.setText('Machine Health: ' + this.machine2.health);
 		//Players movement
-		if(this.cursors.left.isDown && !minigame){
-			this.player.x +=-5;
+		if(this.cursors.left.isDown){
+			this.player.body.velocity.x += -10;
+			this.player.animations.play('walkLeft');
+			this.direction = 0;
+		}else if(this.cursors.right.isDown){
+			this.player.body.velocity.x += 10;
+			this.player.animations.play('walkRight');
+			this.direction = 1;
 		}
-		if(this.cursors.right.isDown && !minigame){
-			this.player.x +=5;
+		else if(this.direction == 0){
+			this.player.animations.play('StandL');
+			this.player.body.velocity.x = 0;
+		}else if (this.direction == 1){
+			this.player.animations.play('StandR');
+			this.player.body.velocity.x = 0;
 		}
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
@@ -125,6 +140,10 @@ create: function(){
 		}
 		else if(this.machine2.health > 100){
 			this.machine2.health = 100;
+		}
+
+		if(this.time == 30){
+			game.state.start('Level-4');
 		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
 			game.state.start('GameOver');
