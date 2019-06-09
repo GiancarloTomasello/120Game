@@ -122,6 +122,7 @@ Play4.prototype = {
 			this.levelStart.destroy();
 			this.startText.destroy();
 			game.time.events.loop(Phaser.Timer.SECOND, timeTick, this);
+			this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugB, this, this.machine2);
 		}
 
 		//Update Test
@@ -180,7 +181,6 @@ Play4.prototype = {
 
 		if(overlap2){
 			this.machine2.Info0.alpha = 1;
-			this.machine2.Info1.alpha = 1;
 			this.machine2.healthText.alpha = 1;
 			this.machine2.Background.alpha = 1;
 			this.machine2.plug.alpha = 1;
@@ -188,7 +188,6 @@ Play4.prototype = {
 		}
 		else{
 			this.machine2.Info0.alpha = 0;
-			this.machine2.Info1.alpha = 0;
 			this.machine2.healthText.alpha = 0;
 			this.machine2.Background.alpha = 0;
 			this.machine2.plug.alpha = 0;
@@ -202,7 +201,7 @@ Play4.prototype = {
 		else if(this.machine2.health > 100){
 			this.machine2.health = 100;
 		}
-		
+
 		if(this.time == 0){
 
 		}

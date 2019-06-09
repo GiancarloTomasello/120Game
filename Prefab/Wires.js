@@ -20,12 +20,9 @@ function Wires(game, x, y, startingHealth){
 
 	
 
-	this.Info0 = game.add.text(600, 525, 'Hold', {fill: '#FFFFFF'});
+	this.Info0 = game.add.text(650, 550, 'Hold [D] to fix', {fill: '#FFFFFF'});
 	this.Info0.anchor.set(0.5);
-	this.Info1 = game.add.text(625, 550, 'to fix', {fill: '#FFFFFF'});
-	this.Info1.anchor.set(0.5);
 	this.Info0.alpha = 0;
-	this.Info1.alpha = 0;
 
 	
 	

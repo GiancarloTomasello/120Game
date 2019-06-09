@@ -81,28 +81,29 @@ create: function(){
 			this.levelStart.destroy();
 			this.startText.destroy();
 			game.time.events.loop(Phaser.Timer.SECOND, timeTick, this);
-		}
-
-		//Update Test
-		this.timeText.setText('Time: ' + this.time);
-		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
-		this.machine2.healthText.setText('Machine Health: ' + this.machine2.health);
-		//Players movement
-		if(this.cursors.left.isDown){
-			this.player.body.velocity.x += -10;
-			this.player.animations.play('walkLeft');
-			this.direction = 0;
-		}else if(this.cursors.right.isDown){
-			this.player.body.velocity.x += 10;
-			this.player.animations.play('walkRight');
-			this.direction = 1;
-		}
-		else if(this.direction == 0){
-			this.player.animations.play('StandL');
-			this.player.body.velocity.x = 0;
-		}else if (this.direction == 1){
-			this.player.animations.play('StandR');
-			this.player.body.velocity.x = 0;
+			this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugB, this, this.machine2);
+		}else if(this.gameStated){
+			//Update Test
+			this.timeText.setText('Time: ' + this.time);
+			this.machine.healthText.setText('Machine Health: ' + this.machine.health);
+			this.machine2.healthText.setText('Machine Health: ' + this.machine2.health);
+			//Players movement
+			if(this.cursors.left.isDown){
+				this.player.body.velocity.x += -10;
+				this.player.animations.play('walkLeft');
+				this.direction = 0;
+			}else if(this.cursors.right.isDown){
+				this.player.body.velocity.x += 10;
+				this.player.animations.play('walkRight');
+				this.direction = 1;
+			}
+			else if(this.direction == 0){
+				this.player.animations.play('StandL');
+				this.player.body.velocity.x = 0;
+			}else if (this.direction == 1){
+				this.player.animations.play('StandR');
+				this.player.body.velocity.x = 0;
+			}
 		}
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
@@ -128,7 +129,6 @@ create: function(){
 
 		if(overlap2){
 			this.machine2.Info0.alpha = 1;
-			this.machine2.Info1.alpha = 1;
 			this.machine2.healthText.alpha = 1;
 			this.machine2.Background.alpha = 1;
 			this.machine2.plug.alpha = 1;
@@ -136,7 +136,6 @@ create: function(){
 		}
 		else{
 			this.machine2.Info0.alpha = 0;
-			this.machine2.Info1.alpha = 0;
 			this.machine2.healthText.alpha = 0;
 			this.machine2.Background.alpha = 0;
 			this.machine2.plug.alpha = 0;

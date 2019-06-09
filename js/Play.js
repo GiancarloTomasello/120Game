@@ -69,53 +69,52 @@ Play.prototype = {
 			this.gameStated = true;
 			this.levelStart.destroy();
 			this.startText.destroy();
-		}
+		}else if(this.gameStated){
 
-		//Update Test
-		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
-		//Players movement
-		if(this.cursors.left.isDown){
-			this.player.body.velocity.x += -10;
-			this.player.animations.play('walkLeft');
-			this.direction = 0;
-		}else if(this.cursors.right.isDown){
-			this.player.body.velocity.x += 10;
-			this.player.animations.play('walkRight');
-			this.direction = 1;
-		}
-		else if(this.direction == 0){
-			this.player.animations.play('StandL');
-			this.player.body.velocity.x = 0;
-		}else if (this.direction == 1){
-			this.player.animations.play('StandR');
-			this.player.body.velocity.x = 0;
-		}
-		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
-		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
+			//Update Test
+			this.machine.healthText.setText('Machine Health: ' + this.machine.health);
+			//Players movement
+			if(this.cursors.left.isDown){
+				this.player.body.velocity.x += -10;
+				this.player.animations.play('walkLeft');
+				this.direction = 0;
+			}else if(this.cursors.right.isDown){
+				this.player.body.velocity.x += 10;
+				this.player.animations.play('walkRight');
+				this.direction = 1;
+			}
+			else if(this.direction == 0){
+				this.player.animations.play('StandL');
+				this.player.body.velocity.x = 0;
+			}else if (this.direction == 1){
+				this.player.animations.play('StandR');
+				this.player.body.velocity.x = 0;
+			}
+			//On Overlap the machine will change the alpha of the info text (located in Generator.js)
+			var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
 
-		if(overlap){
-			this.machine.Info0.alpha = 1;
-			this.machine.Info1.alpha = 1;
-			this.machine.healthText.alpha = 1;
-			this.machine.Background.alpha = 1;
-			this.spacebar.alpha = 1;
-			
-		}
-		else{
-			this.machine.Info0.alpha = 0;
-			this.machine.Info1.alpha = 0;
-			this.machine.healthText.alpha = 0;
-			this.machine.Background.alpha = 0;
-			this.spacebar.alpha = 0;
-		}
+			if(overlap){
+				this.machine.Info0.alpha = 1;
+				this.machine.Info1.alpha = 1;
+				this.machine.healthText.alpha = 1;
+				this.machine.Background.alpha = 1;
+				this.spacebar.alpha = 1;
+				
+			}
+			else{
+				this.machine.Info0.alpha = 0;
+				this.machine.Info1.alpha = 0;
+				this.machine.healthText.alpha = 0;
+				this.machine.Background.alpha = 0;
+				this.spacebar.alpha = 0;
+			}
 
-		if(this.machine.health > 100){
-			this.machine.health = 100;
-			console.log('Level1 (Tutorial) complete')
+			if(this.machine.health > 100){
+				this.machine.health = 100;
 
-			game.state.start('Level-2');
+				game.state.start('Level-2');
+			}
 		}
-
 	}
 }
 
