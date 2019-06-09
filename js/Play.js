@@ -28,6 +28,7 @@ Play.prototype = {
 
 	game.physics.arcade.enable(this.player);
 	this.player.body.collideWorldBounds = true;
+	this.player.body.drag.setTo(400, 0);
 
 	//Creates the spacebar Sprite
 	this.spacebar = game.add.sprite(700, 500, 'spacebar');
@@ -65,19 +66,21 @@ Play.prototype = {
 		this.machine.healthText.setText('Machine Health: ' + this.machine.health);
 		//Players movement
 		if(this.cursors.left.isDown){
-			this.player.x +=-5;
+			this.player.body.velocity.x += -10;
 			this.player.animations.play('walkLeft');
 			this.direction = 0;
 		}else if(this.cursors.right.isDown){
-			this.player.x +=5;
+			this.player.body.velocity.x += 10;
 			this.player.animations.play('walkRight');
 			this.direction = 1;
-		}else if(this.direction == 0){
+		}
+		else if(this.direction == 0){
 			this.player.animations.play('StandL');
+			this.player.body.velocity.x = 0;
 		}else if (this.direction == 1){
 			this.player.animations.play('StandR');
+			this.player.body.velocity.x = 0;
 		}
-
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
 		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
 
