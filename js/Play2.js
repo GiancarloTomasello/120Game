@@ -41,7 +41,8 @@ Play2.prototype = {
 
 	//Game Instructions
 	this.gameStated = false;
-	this.levelStart = game.add.sprite(200,100, 'LevelStart');
+	this.levelStart = game.add.sprite(165,73, 'LevelStart');
+	this.levelStart.scale.setTo(1.2);
 	this.startText = game.add.text(210, 110, 'Hi again. Corporate wanted me to congratulate you on a task well done, they even sent you a present. That is right, it is a new task! One of our machine keeps getting unpluged and they want you to fix it. And go slow! Any broken cords are coming out of your paycheck. \n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
 
 	},

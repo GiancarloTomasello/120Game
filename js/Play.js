@@ -46,7 +46,8 @@ Play.prototype = {
 
 	//Game Instructions
 	this.gameStated = false;
-	this.levelStart = game.add.sprite(200,100, 'LevelStart');
+	this.levelStart = game.add.sprite(165,73, 'LevelStart');
+	this.levelStart.scale.setTo(1.2);
 	this.startText = game.add.text(210, 110, 'Hey there new employee! Your tasks at this business will be pretty straight forward. The higher ups at corporate are worried about some of our faulty tech and we want you to fix them. Just walk over to any of them and you will be provided wuth a hand guide. \n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
 
 	},
