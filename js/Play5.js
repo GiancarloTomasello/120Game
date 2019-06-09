@@ -66,7 +66,8 @@ create: function(){
 
 	//Game Instructions
 	this.gameStated = false;
-	this.levelStart = game.add.sprite(200,100, 'LevelStart');
+	this.levelStart = game.add.sprite(165,73, 'LevelStart');
+	this.levelStart.scale.setTo(1.2);
 	this.startText = game.add.text(210, 110, 'Great work newbie! You are making quick work of these tasks, which reminds me. One of the higher ups got a little carried away at the staff party and so out machines are on the frits. Make sure none of them break during your shift or else you will be in hot water. Good luck!\n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
 
 	},
