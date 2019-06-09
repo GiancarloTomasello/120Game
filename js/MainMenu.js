@@ -2,7 +2,6 @@ var MainMenu = function(game){}
 MainMenu.prototype = {
 	preload: function(){
 		// preload assets
-		game.load.image('generator', 'assets/img/Generator.png');
 		game.load.image('plug', 'assets/img/TempPlug.png');
 		game.load.image('background', 'assets/img/Background.png');	
 		game.load.image('M1Background', 'assets/img/MinigameBackground.png');
@@ -13,6 +12,7 @@ MainMenu.prototype = {
 		game.load.image('TitleScreen', 'assets/img/TitleScreen.png');
 		game.load.image('GameOverText', 'assets/img/EndScreen.png');
 		game.load.atlas('player', 'assets/img/maron.png', 'assets/img/Maron.json');
+		game.load.atlas('generator', 'assets/img/GeneratorS.png', 'assets/img/Generator.json');
 		game.load.audio('fix000', 'assets/audio/FixSoundFX.wav');
 		game.load.audio('fix001', 'assets/audio/FixSoundFX001.wav')
 	},
@@ -38,7 +38,7 @@ MainMenu.prototype = {
 
 	update: function(){
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			game.state.start('Level-1');
+			game.state.start('Level-4');
 		}
 	}
 }

@@ -6,7 +6,6 @@ Play.prototype = {
 // place your assets
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-
 	//world assets loaded and physics-afied
 	this.background = game.add.sprite(0,0, 'background');
 
@@ -24,7 +23,7 @@ Play.prototype = {
 	}
 
 	//Prefab instance
-	this.machine = new Generator(game, 75, 210, 50);
+	this.machine = new Generator(game, 75, 227, 50);
 	game.add.existing(this.machine);
 
 	//create the player and add them to the world, sets up animations

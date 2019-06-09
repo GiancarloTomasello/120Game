@@ -55,10 +55,10 @@ Play4.prototype = {
 	this.box.body.immovable = true;
 
 	//Prefab instance
-	this.machine = new Generator(game, 65 , 70, 50);
+	this.machine = new Generator(game, 65 , 87, 50);
 	this.machine.scale.setTo(0.9);
 	game.add.existing(this.machine);
-	this.machine2 = new Wires(game, 720, 70, 50)
+	this.machine2 = new Wires(game, 720, 87, 50)
 	this.machine2.scale.setTo(0.9);
 	game.add.existing(this.machine2);
 
