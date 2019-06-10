@@ -44,11 +44,6 @@ Play.prototype = {
 	this.spacebar.anchor.set(0.5);
 	this.spacebar.alpha = 0;
 
-	//game audio
-	this.fixSound000 = game.add.audio('fix000');
-	this.fixSound001 = game.add.audio('fix001');
-
-
 	//Arrow keys created
 	this.cursors = game.input.keyboard.createCursorKeys();
 	this.spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -91,7 +86,7 @@ Play.prototype = {
 				this.player.body.velocity.x = 0;
 			}
 			//On Overlap the machine will change the alpha of the info text (located in Generator.js)
-			var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
+			var overlap = game.physics.arcade.overlap(this.player, this.machine, fixGenerator, null, this);
 
 			if(overlap){
 				this.machine.Info0.alpha = 1;
@@ -120,8 +115,9 @@ Play.prototype = {
 
 
 //Overlap method called for the generator. When space bar is pressed increase health (minigame1)
-function fixMachine(player, machine){
+function fixGenerator(player, machine){
 	if(this.spaceBar.downDuration(5)){
 		this.machine.health += 5;
+		sound0.play();
 	}
 }

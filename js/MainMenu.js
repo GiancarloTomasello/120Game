@@ -15,12 +15,19 @@ MainMenu.prototype = {
 		game.load.atlas('generator', 'assets/img/GeneratorS.png', 'assets/img/Generator.json');
 		game.load.audio('fix000', 'assets/audio/FixSoundFX.wav');
 		game.load.audio('fix001', 'assets/audio/FixSoundFX001.wav')
+		game.load.audio('Music', 'assets/audio/BKGD_Music.wav');
 	},
 
 	create: function(){
 		console.log('MainMenu: create');
-		//Background
+		
+		music = game.add.audio('Music');
+		music.loopFull(.75);
 
+		sound0 = game.add.audio('fix000')
+		sound1 = game.add.audio('fix001');
+
+		//Background
 		this.title = game.add.sprite(0,0, 'TitleScreen');
 		this.title.scale.setTo(0.65,.75)
 		game.stage.backgroundColor = '#facade';
@@ -38,7 +45,7 @@ MainMenu.prototype = {
 
 	update: function(){
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			game.state.start('Level-1');
+			game.state.start('Level-3');
 		}
 	}
 }

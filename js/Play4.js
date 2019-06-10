@@ -110,14 +110,15 @@ Play4.prototype = {
 	this.gameStated = false;
 	this.levelStart = game.add.sprite(165,73, 'LevelStart');
 	this.levelStart.scale.setTo(1.2);
-	this.startText = game.add.text(210, 110, 'Great work newbie! You are making quick work of these tasks, which reminds me. One of the higher ups got a little carried away at the staff party and so out machines are on the frits. Make sure none of them break during your shift or else you will be in hot water. Good luck!\n\n press [left] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
+	//Need to change this text
+	this.startText = game.add.text(210, 110, 'The machines seem to still be in shape. Good work! Only downside is that they still seem to be in a state of deterioration and on top of that Corporate started to put these machines into deep storage despire our need for them. Your gonna need to jump up to them and keep them working for now.\n press [Up] to continue', {fontSize: '24px', fill: '#DDD', wordWrap: true, wordWrapWidth: 390})
 
 	},
 	update: function(){
 		// run game loop
 
 		//Game intro - Displays message then removes message and starts timer on button press
-		if(!this.gameStated && this.cursors.left.downDuration(1)){
+		if(!this.gameStated && this.cursors.up.downDuration(1)){
 			this.gameStated = true;
 			this.levelStart.destroy();
 			this.startText.destroy();
@@ -158,7 +159,7 @@ Play4.prototype = {
 
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
-		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
+		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixGenerator, null, this);
 
 
 		if(overlap){
@@ -218,23 +219,32 @@ Play4.prototype = {
 
 function timeTick(){
 	this.time--;
-	this.machine.health--;
+	//this.machine.health--;
+
+	if(this.time > 30){
+		this.machine.health -= 5;
+	}
+	else{
+		this.machine.health -= 2;
+	}
 }
 
 //Overlap method called for the generator. When space bar is pressed increase health (minigame1)
-function fixMachine(player, machine){
+function fixGenerator(player, machine){
 	if(this.spaceBar.downDuration(5)){
 		this.machine.health += 5;
+		sound0.play();
 	}
 }
 
 //Timer event for moving the plug forward and increasing health(minigame2)
-function movePlugF(machine){
+function plugF(machine){
 	machine.plug.x += 11.5;
 	machine.health += 5;
 	if(machine.plug.x > game.width - 72){
 		machine.plug.x = game.width - 72;
 	}
+	sound1.play();
 }
 
 //Time event for movinf the plug back and slowly deteriate the machine health(minigame2)
@@ -250,7 +260,7 @@ function movePlugB(machine){
 function fixMachineWire(player, machine){
 	if(this.keyboardD.downDuration(5)){
 		game.time.events.remove(this.timeLoop);
-		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugF, this, machine);
+		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, plugF, this, machine);
 	}
 	if(this.keyboardD.upDuration(50)){
 		game.time.events.remove(this.timeLoop);

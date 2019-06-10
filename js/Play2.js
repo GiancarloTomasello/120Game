@@ -90,7 +90,7 @@ Play2.prototype = {
 			}
 
 			//On Overlap the machine will change the alpha of the info text (located in Generator.js)
-			var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachineWire, null, this);
+			var overlap = game.physics.arcade.overlap(this.player, this.machine, fixWire, null, this);
 
 			if(overlap){
 				this.machine.Info0.alpha = 1;
@@ -118,18 +118,19 @@ Play2.prototype = {
 }
 
 //Timer event for moving the plug forward and increasing health(minigame2)
-function movePlugF(machine){
+function plugF(machine){
 	machine.plug.x += 11.5;
 	machine.health += 5;
 	if(machine.plug.x > game.width - 72){
 		machine.plug.x = game.width - 72;
 	}
+	sound1.play();
 }
 
 //Overlap method called for moving the plug (minigame2)
-function fixMachineWire(player, machine){
+function fixWire(player, machine){
 	if(this.keyboardD.downDuration(5)){
-		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugF, this, machine);
+		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, plugF, this, machine);
 	}
 	if(this.keyboardD.upDuration(5)){
 		game.time.events.remove(this.timeLoop);

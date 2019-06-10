@@ -80,7 +80,8 @@ create: function(){
 			this.gameStated = true;
 			this.levelStart.destroy();
 			this.startText.destroy();
-			game.time.events.loop(Phaser.Timer.SECOND, timeTick, this);
+			game.time.events.loop(Phaser.Timer.SECOND, time, this);
+			//game.time.events.loop(Phaser.Timer.SECOND, timeTick, this);
 			this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugB, this, this.machine2);
 		}else if(this.gameStated){
 			//Update Test
@@ -107,7 +108,7 @@ create: function(){
 		}
 
 		//On Overlap the machine will change the alpha of the info text (located in Generator.js)
-		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixMachine, null, this);
+		var overlap = game.physics.arcade.overlap(this.player, this.machine, fixGenerator, null, this);
 
 		if(overlap){
 			this.machine.Info0.alpha = 1;
@@ -154,37 +155,53 @@ create: function(){
 			game.state.start('Level-4');
 		}
 		else if (this.machine.health <= 0 || this.machine2.health <= 0){
-			game.state.start('GameOver', true, false, stateName, 'Gameover');
+			game.state.start('GameOver', true, false, stateName);
 		}
 
 	}
 }
 
-function timeTick(){
+function time(){
 	this.time -= 1;
-	this.machine.health -= 1;
+	if(this.time <15){
+		this.machine.health -=5;
+	}
+	else{
+
+		this.machine.health -= 3;
+	}
 }
 
+
 //Overlap method called for the generator. When space bar is pressed increase health (minigame1)
-function fixMachine(player, machine){
+function fixGenerator(player, machine){
 	if(this.spaceBar.downDuration(5)){
 		this.machine.health += 5;
+		sound0.play();
 	}
 }
 
 //Timer event for moving the plug forward and increasing health(minigame2)
-function movePlugF(machine){
+function plugF(machine){
 	machine.plug.x += 11.5;
 	machine.health += 5;
 	if(machine.plug.x > game.width - 72){
 		machine.plug.x = game.width - 72;
 	}
+	sound1.play();
 }
 
 //Time event for movinf the plug back and slowly deteriate the machine health(minigame2)
-function movePlugB(machine){
-	machine.plug.x -= 2.5;
-	machine.health -= 1;
+function plugB(machine){
+	if(this.time > 15){
+		machine.plug.x -= 5;
+		machine.health -= 2
+	}
+	else{
+		machine.plug.x -= 2.5;
+		machine.health -= 1;
+	}
+
 	if(machine.plug.x < 500){
 		machine.plug.x = 500;
 		game.time.events.remove(this.timeLoop);
@@ -194,10 +211,10 @@ function movePlugB(machine){
 function fixMachineWire(player, machine){
 	if(this.keyboardD.downDuration(5)){
 		game.time.events.remove(this.timeLoop);
-		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugF, this, machine);
+		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, plugF, this, machine);
 	}
 	if(this.keyboardD.upDuration(50)){
 		game.time.events.remove(this.timeLoop);
-		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, movePlugB, this, machine);
+		this.timeLoop = game.time.events.loop(Phaser.Timer.SECOND, plugB, this, machine);
 	}
 }
